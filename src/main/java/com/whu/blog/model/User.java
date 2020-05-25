@@ -8,10 +8,12 @@ import java.util.List;
 @Entity
 @Table(name = "t_user")
 public class User {
+
     @Id
     @GeneratedValue
     private Long id;
     private String nickname;
+    private String username;
     private String password;
     private String email;
     private String avatar;
@@ -23,6 +25,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
+
     public User() {
     }
 
@@ -40,6 +43,14 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -90,6 +101,7 @@ public class User {
         this.updateTime = updateTime;
     }
 
+
     public List<Blog> getBlogs() {
         return blogs;
     }
@@ -103,6 +115,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", avatar='" + avatar + '\'' +
