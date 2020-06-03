@@ -10,26 +10,22 @@ import java.util.List;
 @Entity
 @Table(name = "t_blog")
 public class Blog {
-
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
     private String title;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     private String firstPicture;
-    //标记
     private String flag;
-   //浏览次数
     private Integer views;
-    //赞赏开启
     private boolean appreciation;
-    //转载声明是否开启
     private boolean shareStatement;
-    //回复是否开启
     private boolean commentabled;
-    //是否发布
     private boolean published;
-    //是否推荐
     private boolean recommend;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -40,22 +36,28 @@ public class Blog {
     private Type type;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Tag> tags =  new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
+
 
     @ManyToOne
     private User user;
 
     @OneToMany(mappedBy = "blog")
-    private List<Comment>  comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
+
+    @Transient
+    private String tagIds;
+
+    private String description;
 
     public Blog() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -171,6 +173,7 @@ public class Blog {
         this.tags = tags;
     }
 
+
     public User getUser() {
         return user;
     }
@@ -178,6 +181,7 @@ public class Blog {
     public void setUser(User user) {
         this.user = user;
     }
+
 
     public List<Comment> getComments() {
         return comments;
@@ -187,9 +191,50 @@ public class Blog {
         this.comments = comments;
     }
 
+
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void init() {
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+    //1,2,3
+    private String tagsToIds(List<Tag> tags) {
+        if (!tags.isEmpty()) {
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags) {
+                if (flag) {
+                    ids.append(",");
+                } else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        } else {
+            return tagIds;
+        }
+    }
+
+
     @Override
     public String toString() {
-        return "blog{" +
+        return "Blog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
@@ -203,6 +248,12 @@ public class Blog {
                 ", recommend=" + recommend +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", tags=" + tags +
+                ", user=" + user +
+                ", comments=" + comments +
+                ", tagIds='" + tagIds + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

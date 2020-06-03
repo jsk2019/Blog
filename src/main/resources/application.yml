@@ -3,3 +3,6 @@ spring:
     mode: HTML
   profiles:
     active: dev
+
+
+comment.avatar: https://c-ssl.duitang.com/uploads/item/201703/03/20170303011359_84Xvn.thumb.700_0.jpeg

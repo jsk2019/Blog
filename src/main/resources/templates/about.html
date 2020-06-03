@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="">
-<head >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分类</title>
@@ -40,7 +40,7 @@
         <div class="ui stackable grid">
             <div class="eleven wide column">
                 <div class="ui segment">
-                    <img src="../static/images/name.jpg" alt="" class="ui rounded image">
+                    <img src="../static/images/name.jpg" th:src="@{/images/name.jpg}" alt="" class="ui rounded image">
                 </div>
             </div>
             <div class="five wide column">
@@ -53,8 +53,8 @@
                 </div>
                 <div class="ui attached segment">
                     <div class="ui orange basic left pointing label">编程</div>
-                    <div class="ui orange basic left pointing label">编程</div>
-                    <div class="ui orange basic left pointing label">编程</div>
+                    <div class="ui orange basic left pointing label">写作业</div>
+                    <div class="ui orange basic left pointing label">摸鱼</div>
                     <div class="ui orange basic left pointing label">反向冲刺</div>
                 </div>
                 <div class="ui attached segment">
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="ui wechat-qr flowing popup transition hidden">
-                    <img src="../static/images/wechat.jpg" alt="" class="ui rounded image" style="width: 110px">
+                    <img src="../static/images/wechat.jpg"  alt="" class="ui rounded image" style="width: 110px">
                 </div>
             </div>
         </div>
